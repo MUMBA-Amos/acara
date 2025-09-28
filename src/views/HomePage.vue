@@ -13,6 +13,7 @@
     <MonthEvents />
 
     <!-- Footer -->
+    <Footer />
   </div>
 </template>
 
@@ -21,6 +22,7 @@ import Header from '../components/homepage/Header.vue'
 import Hero from '../components/homepage/hero.vue'
 import FeaturedEvents from '../components/homepage/featuredEvents.vue'
 import MonthEvents from '../components/homepage/monthEvents.vue'
+import Footer from '../components/shared/footer.vue'
 </script>
 
 <style scoped>
