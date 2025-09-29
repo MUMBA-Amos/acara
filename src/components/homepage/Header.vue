@@ -52,6 +52,11 @@ function onCategoryChange(slug) {
 <template>
   <div class="header-container">
     <div class="header-content">
+      <!--Logo-->
+      <div class="logo-section">
+        <img src="@/assets/logo-goacara.png" alt="Logo" class="logo" />
+      </div>
+
       <!--Search bar-->
       <div class="search-section">
         <div class="search-container">
@@ -95,6 +100,7 @@ function onCategoryChange(slug) {
   align-items: center;
   justify-content: center;
   padding: 20px;
+  position: relative; /* For absolute positioning of logo */
 }
 
 .header-content {
@@ -226,5 +232,63 @@ function onCategoryChange(slug) {
     font-size: 13px;
     padding: 8px 12px;
   }
+}
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px; /* Space between logo row and month strip */
+}
+
+/* NEW: Logo section */
+.logo-section {
+  position: absolute;
+  top: 20px;
+  left: 290px;
+  z-index: 10;
+}
+
+.logo {
+  height: 130px;
+  width: 130px;
+}
+
+/* Responsive logo adjustments */
+@media (max-width: 1200px) {
+  .logo-section {
+    left: 200px; /* Adjust for medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .logo-section {
+    top: 15px;
+    left: 20px; /* Move to edge on smaller screens */
+  }
+
+  .logo {
+    height: 100px;
+    width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-section {
+    top: 10px;
+    left: 15px; /* Keep close to edge on mobile */
+  }
+
+  .logo {
+    height: 80px;
+    width: 80px;
+  }
+}
+
+/* UPDATED: Search section */
+.search-section {
+  width: auto; /* Changed from 100% */
+  display: flex;
+  justify-content: flex-end; /* Changed from center */
 }
 </style>
