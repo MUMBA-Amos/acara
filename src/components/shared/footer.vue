@@ -26,6 +26,7 @@ const footer = reactive({
 function submitFooter() {
     console.log(footer)
 }
+
 </script>
 
 <template>

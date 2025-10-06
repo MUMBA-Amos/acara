@@ -1,5 +1,5 @@
 <script setup>
-import Header from '../components/homepage/Header.vue'
+import Header from '../components/shared/Header.vue'
 import Hero from '../components/homepage/hero.vue'
 import FeaturedEvents from '../components/homepage/featuredEvents.vue'
 import MonthEvents from '../components/homepage/monthEvents.vue'

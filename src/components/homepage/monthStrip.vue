@@ -121,60 +121,150 @@ function select(i) {
 .month-btn.active::after {
   content: '';
   position: absolute;
-  bottom: -4px;
+  bottom: -3px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 4px solid #2f4046;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 3px solid #2f4046;
 }
 
 /* Responsive adjustments */
+/* Large tablets */
+@media (max-width: 1024px) {
+  .month-strip {
+    max-width: 100%;
+    padding: 6px 10px;
+    gap: 10px;
+  }
+
+  .year-display {
+    font-size: 17px;
+  }
+
+  .month-btn {
+    padding: 7px 11px;
+    font-size: 16px;
+  }
+}
+
+/* Tablets */
 @media (max-width: 768px) {
   .month-strip {
     max-width: 100%;
-    padding: 4px 6px;
+    padding: 8px 12px;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .year-display {
+    font-size: 16px;
+    order: 1;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .months-container {
+    gap: 6px;
+    order: 2;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .month-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+    min-width: 50px;
+  }
+}
+
+/* Large phones */
+@media (max-width: 600px) {
+  .month-strip {
+    padding: 6px 10px;
     gap: 8px;
   }
 
   .year-display {
-    font-size: 18px;
+    font-size: 15px;
+    margin-bottom: 7px;
+  }
+
+  .months-container {
+    gap: 5px;
   }
 
   .month-btn {
-    padding: 4px 8px;
-    font-size: 12px;
+    padding: 7px 11px;
+    font-size: 13px;
+    min-width: 48px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .month-strip {
+    padding: 5px 8px;
+    gap: 6px;
+  }
+
+  .year-display {
+    font-size: 14px;
+    margin-bottom: 6px;
   }
 
   .months-container {
     gap: 4px;
   }
+
+  .month-btn {
+    padding: 6px 9px;
+    font-size: 12px;
+    min-width: 45px;
+  }
 }
 
-@media (max-width: 480px) {
+/* iPhone SE and extra small phones */
+@media (max-width: 375px) {
   .month-strip {
-    padding: 3px 4px;
+    padding: 4px 6px;
     gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .year-display {
-    font-size: 12px;
-  }
-
-  .month-btn {
-    padding: 3px 6px;
-    font-size: 11px;
-  }
-
-  .months-container {
-    gap: 2px;
+    font-size: 13px;
+    margin-bottom: 6px;
+    order: 1;
+    width: 100%;
+    text-align: center;
   }
 
   .divider {
-    width: 1px;
-    height: 14px;
+    display: none;
+  }
+
+  .months-container {
+    gap: 4px;
+    row-gap: 6px;
+    order: 2;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .month-btn {
+    padding: 6px 8px;
+    font-size: 12px;
+    min-width: 42px;
   }
 }
 </style>

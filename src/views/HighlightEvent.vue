@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import Header from '../components/homepage/Header.vue'
+import Header from '../components/shared/Header.vue'
 import EventDetails from '../components/highlightevent/EventDetails.vue'
 import RelatedEvents from '../components/highlightevent/RelatedEvents.vue'
 import Footer from '../components/shared/footer.vue'

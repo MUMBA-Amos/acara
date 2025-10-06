@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
 import HighlightEvent from '../views/HighlightEvent.vue'
+import LoginPage from '../views/LoginPage.vue'
 
 const routes = [
   {
@@ -14,12 +15,13 @@ const routes = [
     component: HighlightEvent,
     props: true
   },
-  // Add more routes here as you create new pages
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   component: () => import('../views/About.vue')
-  // },
+
+  
+  {
+    path: '/loginPage',
+    name: 'LoginPage',
+    component: LoginPage,
+  },
   // {
   //   path: '/events',
   //   name: 'Events',

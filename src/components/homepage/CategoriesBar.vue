@@ -64,12 +64,12 @@ const items = computed(() => props.categories)
 .catbar-wrapper.bar {
   background: #2f4046; /* dark teal background like image */ /* green bottom border */
   border-radius: 0; /* no rounding to match image */
-  padding: 6px 8px; /* reduced padding to fit more content */
+  padding: 6px 8px 0 8px; /* reduced padding to fit more content, no bottom padding */
+  margin: 0 auto; /* center the container, no top margin */
   display: flex;
   justify-content: center;
   width: 100%;
   max-width: 1000px; /* increased width for better spacing */
-  margin: 0 auto; /* center the container */
   position: relative;
 }
 
@@ -141,55 +141,97 @@ const items = computed(() => props.categories)
 }
 
 /* Responsive adjustments */
+/* Large tablets and small desktops */
 @media (max-width: 1200px) {
   .catbar-wrapper.bar {
     max-width: 100%;
-    padding: 4px 6px;
+    padding: 5px 8px 0 8px;
+    margin: 0 auto;
   }
 
   .cat {
-    padding: 5px 6px;
-    font-size: 0.7rem;
+    padding: 6px 8px;
+    font-size: 0.75rem;
   }
   .catbar {
-    gap: 1px;
+    gap: 2px;
   }
 }
 
+/* Tablets */
 @media (max-width: 768px) {
   .catbar-wrapper.bar {
     max-width: 100%;
-    padding: 3px 4px;
+    padding: 4px 6px 0 6px;
+    margin: 0 auto;
   }
 
   .catbar {
-    gap: 1px;
+    gap: 2px;
     flex-wrap: wrap;
     justify-content: center;
   }
 
   .cat {
-    padding: 4px 5px;
-    font-size: 0.65rem;
-    line-height: 1;
-    min-width: 80px;
+    padding: 5px 7px;
+    font-size: 0.7rem;
+    line-height: 1.1;
+    min-width: 85px;
     flex: 0 1 auto;
   }
 }
 
-@media (max-width: 480px) {
+/* Large phones */
+@media (max-width: 600px) {
   .catbar-wrapper.bar {
-    padding: 2px 3px;
+    padding: 3px 5px 0 5px;
+    margin: 0 auto;
   }
 
   .cat {
-    padding: 3px 4px;
+    padding: 4px 6px;
+    font-size: 0.65rem;
+    min-width: 75px;
+  }
+
+  .catbar {
+    gap: 1px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .catbar-wrapper.bar {
+    padding: 3px 4px 0 4px;
+    margin: 0 auto;
+  }
+
+  .cat {
+    padding: 4px 5px;
     font-size: 0.6rem;
     min-width: 70px;
   }
 
   .catbar {
-    gap: 0.5px;
+    gap: 1px;
+  }
+}
+
+/* iPhone SE and extra small phones */
+@media (max-width: 375px) {
+  .catbar-wrapper.bar {
+    padding: 3px 4px 0 4px;
+    margin: 0 auto;
+  }
+
+  .cat {
+    padding: 4px 5px;
+    font-size: 0.6rem;
+    min-width: 68px;
+  }
+
+  .catbar {
+    gap: 1px;
   }
 }
 </style>
