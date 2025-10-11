@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
 import HighlightEvent from '../views/HighlightEvent.vue'
 import LoginPage from '../views/LoginPage.vue'
+import EventListPage from '../views/EventListPage.vue'
 
 const routes = [
   {
@@ -22,11 +23,16 @@ const routes = [
     name: 'LoginPage',
     component: LoginPage,
   },
-  // {
-  //   path: '/events',
-  //   name: 'Events',
-  //   component: () => import('../views/Events.vue')
-  // }
+  {
+    path: '/events',
+    name: 'Events',
+    component: EventListPage
+  },
+  {
+    path: '/event',
+    name: 'EventList',
+    component: EventListPage
+  }
 ]
 
 const router = createRouter({
