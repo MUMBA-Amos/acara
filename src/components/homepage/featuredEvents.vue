@@ -3,33 +3,79 @@ import { reactive, computed, onMounted } from 'vue'
 
 //Constants
 const featureEvents = reactive({
+  // TODO: Replace with actual API data during production deployment
   events: [
     {
-      id: 0,
-      title: '',
-      description: '',
-      date: '',
-      time: '',
-      location: '',
-      image: '',
+      id: 1,
+      title: 'Sarawak International Choral Festival/Symposium 2025',
+      date: '10 June 2025',
+      time: '9:00 am',
+      location: 'Kuching, Sarawak',
+      image: '/src/assets/rainforest.jpg'
     },
+    {
+      id: 2,
+      title: 'Slot International Mountain Bike Challenge (SIMBC 2025)',
+      date: '15 June 2025',
+      time: '8:00 am',
+      location: 'Miri, Sarawak',
+      image: '/src/assets/rainforest.jpg'
+    },
+    {
+      id: 3,
+      title: 'Kuching Food Festival 2025 (GAWAI)',
+      date: '20 June 2025',
+      time: '10:00 am',
+      location: 'Kuching Waterfront, Sarawak',
+      image: '/src/assets/rainforest.jpg'
+    },
+    {
+      id: 4,
+      title: 'Borneo Jazz Festival 2025',
+      date: '25 June 2025',
+      time: '7:00 pm',
+      location: 'Miri, Sarawak',
+      image: '/src/assets/rainforest.jpg'
+    },
+    {
+      id: 5,
+      title: 'Sarawak Cultural Village Festival',
+      date: '30 June 2025',
+      time: '2:00 pm',
+      location: 'Santubong, Sarawak',
+      image: '/src/assets/rainforest.jpg'
+    },
+    {
+      id: 6,
+      title: 'Rainforest World Music Festival 2025',
+      date: '5 July 2025',
+      time: '6:00 pm',
+      location: 'Kuching, Sarawak',
+      image: '/src/assets/rainforest.jpg'
+    }
   ],
   isLoading: false,
   error: null,
   hasData: true,
 })
 
-// Configuration
-const EVENTS_PER_SLIDE = 3
+// Carousel scroll functionality
+let carouselContainer = null
 
-// Computed property to create carousel slides
-const carouselSlides = computed(() => {
-  const slides = []
-  for (let i = 0; i < featureEvents.events.length; i += EVENTS_PER_SLIDE) {
-    slides.push(featureEvents.events.slice(i, i + EVENTS_PER_SLIDE))
-  }
-  return slides
-})
+function scrollCarousel(direction) {
+  if (!carouselContainer) return
+  
+  const scrollAmount = 410 // Card width (387px) + gap (1.5rem ≈ 24px)
+  const currentScroll = carouselContainer.scrollLeft
+  const targetScroll = direction === 'next' 
+    ? currentScroll + scrollAmount 
+    : currentScroll - scrollAmount
+  
+  carouselContainer.scrollTo({
+    left: targetScroll,
+    behavior: 'smooth'
+  })
+}
 
 //functions
 async function fetchEvents() {
@@ -37,7 +83,7 @@ async function fetchEvents() {
     featureEvents.isLoading = true
     featureEvents.error = null
 
-    // API in future
+    // TODO: Replace with actual API endpoint during production deployment
     const response = await fetch('/api/events/')
 
     if (!response.ok) {
@@ -50,18 +96,26 @@ async function fetchEvents() {
     featureEvents.events = data.events || data
     featureEvents.hasData = featureEvents.events.length > 0
   } catch (error) {
-    featureEvents.error = 'Failed to fetch Events'
-    console.error('Error fetching events:', error)
+    // TODO: Remove mock data fallback during production deployment
+    console.log('Using mock data for featured events (development mode)')
+    featureEvents.error = null // Clear error since we have mock data
+    featureEvents.hasData = true
   } finally {
     featureEvents.isLoading = false
   }
 }
 
-function onclickHandle() {}
+// TODO: Remove this mock function during production deployment
+function navigateToEvent(eventId) {
+  // This will be handled by RouterLink in template
+  console.log(`Navigating to event ${eventId}`)
+}
 
 // Fetch events when component mounts
 onMounted(() => {
   fetchEvents()
+  // Get reference to carousel container for scrolling
+  carouselContainer = document.querySelector('.events-scroll-container')
 })
 </script>
 
@@ -75,83 +129,62 @@ onMounted(() => {
     <!--Error state -->
     <div v-if="featureEvents.error" class="error">Error: {{ featureEvents.error }}</div>
 
-    <!--Bootstrap Carousel Container-->
+    <!--Continuous Scroll Carousel Container-->
     <div v-if="featureEvents.hasData" class="carousel-container">
-      <div id="featuredEventsCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <!-- Dynamic slides based on database data -->
-          <div
-            v-for="(slide, slideIndex) in carouselSlides"
-            :key="slideIndex"
-            class="carousel-item"
-            :class="{ active: slideIndex === 0 }"
-          >
-            <div class="events-row">
-              <div v-for="(event, eventIndex) in slide" :key="event.id" class="event-card">
+      <div class="events-scroll-container">
+        <div class="events-row">
+          <div v-for="event in featureEvents.events" :key="event.id" class="event-card">
+            <RouterLink :to="`/event/${event.id}`" class="event-link">
+              <div class="event-image-container">
                 <img :src="event.image" :alt="event.title" class="event-image" />
-                <div class="event-content">
-                  <h3 class="event-title">{{ event.title }}</h3>
-                  <p class="event-description">{{ event.description }}</p>
-                  <div class="event-details">
-                    <p class="event-time">📅 {{ event.date }}</p>
-                    <p class="event-time">🕒 {{ event.time }}</p>
-                    <p class="event-location">📍 {{ event.location }}</p>
-                  </div>
+              </div>
+              <div class="event-content">
+                <h3 class="event-title">{{ event.title }}</h3>
+                <div class="event-details">
+                  <p class="event-date">📅 {{ event.date }}</p>
+                  <p class="event-time">🕒 {{ event.time }}</p>
+                  <p class="event-location">📍 {{ event.location }}</p>
                 </div>
               </div>
-            </div>
+            </RouterLink>
           </div>
         </div>
-
-        <!-- Bootstrap Navigation Buttons -->
-        <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#featuredEventsCarousel"
-          data-bs-slide="prev"
-        >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#featuredEventsCarousel"
-          data-bs-slide="next"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-
-        <!-- Bootstrap Indicators -->
-        <div class="carousel-indicators">
-          <button
-            v-for="(slide, index) in carouselSlides"
-            :key="index"
-            type="button"
-            data-bs-target="#featuredEventsCarousel"
-            :data-bs-slide-to="index"
-            :class="{ active: index === 0 }"
-            :aria-current="index === 0 ? 'true' : undefined"
-            :aria-label="`Slide ${index + 1}`"
-          ></button>
-        </div>
       </div>
+
+      <!-- Custom Navigation Buttons -->
+      <button
+        class="carousel-control-prev"
+        type="button"
+        @click="scrollCarousel('prev')"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        @click="scrollCarousel('next')"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
   </div>
 </template>
 
 <style scoped>
 .featured-events {
-  padding: 40px 20px;
+  padding: 40px 130px;
   background-color: #f8f9fa;
 }
 
 .section-title {
   font-size: 2rem;
   color: #006852;
-  margin-bottom: 30px;
   font-family: 'Lato', sans-serif;
+  padding-left: 40px;
+  margin-top: 40px;
+  font-weight: 700;
 }
 
 .loading,
@@ -165,93 +198,118 @@ onMounted(() => {
   color: #e74c3c;
 }
 
-/* Simple carousel container */
+/* Carousel container with navigation */
 .carousel-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 30px;
   position: relative;
+  padding: 25px 40px;
 }
 
-/* Ensure carousel items maintain consistent height */
-.carousel-item {
-  min-height: 500px;
+/* Horizontal scroll container */
+.events-scroll-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
 }
 
-.carousel-item.active {
-  min-height: 500px;
+.events-scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
-/* Events row layout */
+/* Events row layout for horizontal scrolling */
 .events-row {
   display: flex;
-  gap: 20px;
-  padding: 0 10px;
-  min-height: 500px;
+  gap: 1.5rem;
+  padding: 0;
   align-items: stretch;
+  width: max-content;
 }
 
-/* Simple event card */
+/* Event card with fixed height and width */
 .event-card {
   background: white;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  flex: 1;
-  min-width: 0;
-  height: 500px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 387px;
+  min-width: 387px;
+  height: 488px;
   display: flex;
   flex-direction: column;
   position: relative;
+  transition: all 0.3s ease;
+  margin: 20px 0;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* RouterLink styling */
+.event-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+}
+
+.event-link:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.event-image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
 }
 
 .event-image {
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.event-card:hover .event-image {
+  transform: scale(1.05);
 }
 
 .event-content {
-  padding: 25px;
+  padding: 1.25rem;
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .event-title {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: #2c3e50;
-  margin-bottom: 15px;
-  line-height: 1.3;
-  height: 3.2rem;
-  overflow: hidden;
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-}
-
-.event-description {
-  color: #666;
-  margin-bottom: 20px;
-  flex: 1;
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  line-height: 1.5;
 }
 
 .event-details {
-  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .event-details p {
-  margin: 5px 0;
-  color: #555;
+  margin: 0;
   font-size: 0.9rem;
-  word-wrap: break-word;
-  line-height: 1.4;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 /* Custom button styling */
@@ -289,11 +347,6 @@ onMounted(() => {
   height: 20px;
 }
 
-/* Simple indicators */
-.carousel-indicators .active {
-  background-color: #006852;
-}
-
 /* Mobile responsive */
 @media (max-width: 768px) {
   .featured-events {
@@ -302,37 +355,42 @@ onMounted(() => {
 
   .section-title {
     font-size: 1.5rem;
+    padding-left: 20px;
   }
 
   .carousel-container {
-    max-width: 100%;
+    padding: 15px 20px;
   }
 
   .events-row {
-    flex-direction: column;
-    gap: 15px;
+    gap: 1rem;
+  }
+
+  .event-card {
+    width: 309px;
+    min-width: 309px;
+    height: 390px;
+  }
+
+  .event-image-container {
+    height: 160px;
   }
 
   .event-content {
-    padding: 15px;
-  }
-
-  .carousel-container {
-    padding: 0 20px;
+    padding: 1rem;
   }
 
   .carousel-control-prev,
   .carousel-control-next {
-    width: 40px;
-    height: 40px;
+    display: none;
   }
 
   .carousel-control-prev {
-    left: -20px;
+    left: -10px;
   }
 
   .carousel-control-next {
-    right: -20px;
+    right: -10px;
   }
 }
 </style>
