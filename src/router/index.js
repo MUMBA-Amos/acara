@@ -3,6 +3,7 @@ import HomePage from '../views/HomePage.vue'
 import HighlightEvent from '../views/HighlightEvent.vue'
 import LoginPage from '../views/LoginPage.vue'
 import Admin from '../views/admin/Admin.vue'
+import EventListPage from '../views/EventListPage.vue'
 
 const routes = [
   {
@@ -20,6 +21,16 @@ const routes = [
     path: '/loginPage',
     name: 'LoginPage',
     component: LoginPage,
+  },
+  {
+    path: '/events',
+    name: 'Events',
+    component: EventListPage,
+  },
+  {
+    path: '/event',
+    name: 'EventList',
+    component: EventListPage,
   },
   // Admin routes
   {

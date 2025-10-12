@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
-// Constants - change object properties to match API response
+// TODO: change object properties to match API response
 const eventDetails = reactive({
   event: {
     id: 0,
