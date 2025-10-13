@@ -5,11 +5,12 @@ import { reactive } from 'vue'
 const footer = reactive({
     //placeholder links - replace with actual links
     links: {
-        termsOfUse: '/terms-of-use',
+        termsOfService: '/terms-of-service',
         privacyPolicy: '/privacy-policy',
-        cookiePolicy: '/cookie-policy',
-        faq: '/faq',
-        contactUs: '/contact-us',
+        disclaimer: '/disclaimer',
+        aboutUs: '/about-us',
+        contact: '/contact',
+        eventSubmissionGuidelines: '/event-submission-guidelines',
     },
     socialMedia: {
         facebook: 'https://facebook.com/goacara',
@@ -43,9 +44,10 @@ function submitFooter() {
         <div class="footer-section">
             <h3>About This Site</h3>
             <ul>
-                <li><a :href="footer.links.termsOfUse">Terms of use</a></li>
+                <li><a :href="footer.links.aboutUs">About Us</a></li>
+                <li><a :href="footer.links.termsOfService">Terms of Service</a></li>
                 <li><a :href="footer.links.privacyPolicy">Privacy Policy</a></li>
-                <li><a :href="footer.links.cookiePolicy">Cookie Policy</a></li>
+                <li><a :href="footer.links.disclaimer">Disclaimer</a></li>
             </ul>
         </div>
 
@@ -53,8 +55,8 @@ function submitFooter() {
         <div class="footer-section">
             <h3>Help</h3>
             <ul>
-            <li><a :href="footer.links.faq">FAQ</a></li>
-            <li><a :href="footer.links.contactUs">Contact us</a></li>
+            <li><a :href="footer.links.contact">Contact Us</a></li>
+            <li><a :href="footer.links.eventSubmissionGuidelines">Event Submission Guidelines</a></li>
             </ul>
         </div>
 
